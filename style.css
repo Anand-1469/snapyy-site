@@ -1,0 +1,136 @@
+/* Reset default margins */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #d903d6, #0056ff);
+  color: white;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Header styling */
+header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+}
+
+/* Intro section */
+.intro {
+  margin-top: 50px;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin: 20px 0;
+}
+
+p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.btn {
+  background-color: white;
+  color: #007bff;
+  text-decoration: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: #e6e6e6;
+}
+
+/* Footer styling */
+footer {
+  padding: 20px;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* --- Feed posts --- */
+.feed {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 10px;
+}
+
+.post {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  margin-bottom: 20px;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.post img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.post p {
+  margin-top: 8px;
+}
+
+/* --- Bottom navigation --- */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+
+.bottom-nav a {
+  color: white;
+  font-size: 25px;
+  text-decoration: none;
+}
+
+/* --- Upload --- */
+textarea {
+  width: 90%;
+  height: 80px;
+  margin: 10px auto;
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  resize: none;
+}
+.profile-pic {
+  width: 10px;           /* size apne design ke hisab se */
+  height: 10px;
+  border-radius: 50%;    /* ye magic line hai 🎯 */
+  object-fit: cover;     /* image stretch nahi hogi */
+  border: 2px solid white; /* optional – border dikhana ho to */
+  margin-right: 8px;
+  border-radius: 50%;;
+}
+

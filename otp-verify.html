@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Enter OTP - Snapyy</title>
+<style>
+  body{font-family:Inter, system-ui, Arial;background:linear-gradient(135deg,#007bff,#0056ff);color:#fff;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
+  .card{background:#fff;color:#111;padding:24px;border-radius:12px;width:380px;box-shadow:0 8px 30px rgba(2,6,23,0.4);text-align:center}
+  .card img{width:60px;height:60px;border-radius:10px;margin-bottom:8px}
+  h2{color:#007bff;margin-bottom:6px}
+  input{width:100%;padding:12px;margin:10px 0;border:1px solid #ddd;border-radius:8px;font-size:16px}
+  .row{display:flex;gap:8px}
+  button{padding:12px;border-radius:10px;border:none;background:#007bff;color:#fff;font-weight:700;cursor:pointer}
+  .muted{color:#666;font-size:13px;margin-top:10px}
+  a{color:#007bff;text-decoration:none}
+</style>
+</head>
+<body>
+  <div class="card">
+    <img src="/snapyy-site/images/logo.png" alt="Snapyy Logo">
+    <h2>Enter OTP</h2>
+    <p>We have sent a 6-digit OTP to your phone. Enter below.</p>
+
+    <input id="otpInput" type="text" placeholder="Enter 6-digit OTP" maxlength="6" />
+    <div class="row" style="margin-top:8px">
+      <button id="verify">Verify OTP</button>
+      <button id="resend" style="background:#eee;color:#007bff">Resend</button>
+    </div>
+
+    <div class="muted" id="status">You have 3 attempts. OTP valid for 5 minutes.</div>
+    <div style="margin-top:8px"><a href="login.html">Back to Login</a></div>
+  </div>
+
+<script>
+(function(){
+  const payloadRaw = localStorage.getItem('snapyy_otp_payload');
+  if(!payloadRaw){ alert('No OTP request found. Please request OTP first.'); location.href='forgot.html'; }
+  const payload = JSON.parse(payloadRaw);
+  const otpInput = document.getElementById('otpInput');
+  const verifyBtn = document.getElementById('verify');
+  const resendBtn = document.getElementById('resend');
+  const status = document.getElementById('status');
+
+  function updateStatus(){
+    const now = Date.now();
+    if(now > payload.expiry){
+      status.innerText = 'OTP expired. Please resend.';
+    } else {
+      status.innerText = `Phone: ${payload.phone} • Attempts left: ${payload.attemptsLeft} • Expires in ${Math.ceil((payload.expiry - now)/1000)}s`;
+    }
+  }
+  updateStatus();
+  // countdown update every sec
+  let timer = setInterval(()=> {
+    const p = JSON.parse(localStorage.getItem('snapyy_otp_payload')||'{}');
+    if(!p || !p.expiry){ clearInterval(timer); return; }
+    if(Date.now() > p.expiry){ status.innerText = 'OTP expired. Please resend.'; clearInterval(timer); return; }
+    updateStatus();
+  },1000);
+
+  verifyBtn.addEventListener('click', ()=>{
+    const entered = (otpInput.value||'').trim();
+    const storedRaw = localStorage.getItem('snapyy_otp_payload');
+    if(!storedRaw){ alert('No OTP stored.'); location.href='forgot.html'; return; }
+    const stored = JSON.parse(storedRaw);
+
+    if(Date.now() > stored.expiry){
+      alert('OTP expired. Please resend.');
+      return;
+    }
+    if(stored.attemptsLeft <= 0){
+      alert('No attempts left. Please resend OTP.');
+      return;
+    }
+    if(entered === stored.otp){
+      // mark verified
+      localStorage.setItem('snapyy_otp_verified', JSON.stringify({ phone: stored.phone, verifiedAt: Date.now() }));
+      // remove payload for security
+      localStorage.removeItem('snapyy_otp_payload');
+      alert('OTP verified! Proceed to reset password.');
+      location.href = 'reset-password.html';
+    } else {
+      stored.attemptsLeft = (stored.attemptsLeft || 1) - 1;
+      localStorage.setItem('snapyy_otp_payload', JSON.stringify(stored));
+      if(stored.attemptsLeft <= 0){
+        alert('Incorrect OTP. No attempts left — please resend OTP.');
+      } else {
+        alert('Incorrect OTP. Attempts left: ' + stored.attemptsLeft);
+      }
+      updateStatus();
+    }
+  });
+
+  resendBtn.addEventListener('click', ()=>{
+    // Rate-limit resend (30s)
+    const lastSent = parseInt(localStorage.getItem('snapyy_otp_last_sent')||'0',10);
+    if(Date.now() - lastSent < 30000){
+      alert('Please wait a few seconds before resending OTP.');
+      return;
+    }
+    // generate new OTP and reset attempts
+    const newOtp = Math.floor(100000 + Math.random()*900000).toString();
+    const newPayload = { phone: payload.phone, otp: newOtp, expiry: Date.now() + 5*60*1000, attemptsLeft: 3 };
+    localStorage.setItem('snapyy_otp_payload', JSON.stringify(newPayload));
+    localStorage.setItem('snapyy_otp_last_sent', Date.now().toString());
+    alert('OTP resent (demo). New OTP: ' + newOtp);
+    updateStatus();
+  });
+
+})();
+</script>
+</body>
+</html>

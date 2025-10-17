@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snapyy Feed</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+
+    /* Navbar */
+    nav {
+      background: #007bff;
+      color: rgb(246, 246, 246);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: rgb(255, 255, 255);
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Feed */
+    .feed {
+      max-width: 600px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .post {
+      border-bottom: 1px solid #ddd;
+      padding: 15px;
+    }
+
+    .post:last-child {
+      border-bottom: none;
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .like-btn{
+      color: white;
+      margin-top: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-blo
+    }
+
+    .post-header img {
+      width: 500px;
+      
+
+
+    }
+
+    .post-header h2 {
+      font-size: 1rem;
+      width: 200px;
+    }
+
+    .post img {
+      width: 100%;
+      border-radius: 40px;
+      margin-top: 10px;
+    }
+
+    .post p {
+      margin-top: 8px;
+      font-size: 0.95rem;
+    }
+
+    .like-btn:hover{
+      margin-top: 10px;
+      color: red;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    footer {
+      text-align: center;
+      margin: 30px 0;
+      color: #555;
+      font-size: 0.9rem;
+    }
+
+    .upload-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 16px 22px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .upload-btn:hover {
+      background: #0056ff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">
+      <img src="images/logo.png" alt="Snapyy Logo">
+      <span>Snapyy</span>
+    </div>
+    <div class="profile-pic">
+      <a href="home.html">Home</a>
+      <a href="#">Explore</a>
+      <a href="profile.html">Profile</a>
+      <a href="index.html">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Feed Section -->
+  <div class="feed">
+    <div class="post">
+      <div class="post-header">
+        <img src="https://i.pravatar.cc/100?img=3" alt="User
+        "
+        style="border-radius: 50%;
+        width: 30px;">
+        <h3>Aarav Sharma</h3>
+      </div>
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?width=400px;" alt="Beach">
+      <p>Beautiful evening by the sea 🌅 #vacation #snapyy</p>
+      <span class="like-btn">❤️ Like</span>
+    </div>
+
+    <div class="post">
+      <div class="post-header">
+        <img src="https://i.pravatar.cc/100?img=12" alt="User"
+        style="border-radius: 50%;
+          width: 30px;"
+        >
+        <h3>Diya Patel</h3>
+      </div>
+      <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400px;" alt="Sunset">
+      <p>Good vibes only ☀️✨</p>
+      <span class="like-btn">❤️ Like</span>
+    </div>
+  </div>
+
+  <button class="upload-btn">+</button>
+
+  <footer>© 2025 Snapyy. All rights reserved.</footer>
+
+</body>
+</html>

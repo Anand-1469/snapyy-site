@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Snapyy</title>
+  <div>
+    <Title>
+      <h1>
+        <img src="c:\Users\suman\Downloads\ChatGPT Image Oct 8, 2025, 07_14_48 PM.png" alt="">
+      </h1>
+    </Title>
+  </div>
+  <style>
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #d262ca, #0056ff);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+       text-align: start;
+    }
+
+    .signup-box {
+      background: blue;
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    input[type="tel"], input[type="password"] {
+      font-size: 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      background: lightblue;
+      color: #007bff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #e6e6e6;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      margin-top: 15px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-box">
+    <h1>Create Account</h1>
+    <form onsubmit="return validateForm()">
+      <input type="tel" id="phone" placeholder="Phone Number" required pattern="[0-9]{10}">
+      <input type="password" id="password" placeholder="Create New Password" required>
+      <input type="password" id="confirm" placeholder="Confirm Password" required>
+     <a href="home.html"> <button type="submit" 
+      class="btn">Sign Up</button>
+    </form>  
+    <a href="login.html">login existing <style>
+    body{
+      text-decoration-color: #d262ca;
+     
+
+
+
+    }
+
+    </style></a>
+  </div>
+
+  <script>
+    function validateForm() {
+      const pass = document.getElementById('password').value;
+      const confirm = document.getElementById('confirm').value;
+      const phone = document.getElementById('phone').value;
+    }
+
+      if (phone.length !== 10) {
+        alert('Phone number must be 10 digits!');
+        return false;
+      }
+
+      if (pass !== confirm);  {
+        alert('Passwords do not match!');
+        return false;
+       
+        
+      }
+      
+  </script>
+</body>
+</html>

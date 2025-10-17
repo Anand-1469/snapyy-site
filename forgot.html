@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Forgot Password - Snapyy (OTP)</title>
+<style>
+  body{font-family:Inter, system-ui, Arial; background:linear-gradient(135deg,#da0be5,#0056ff); color:#fff; display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
+  .card{background:#fff;color:#111;padding:28px;border-radius:12px;width:360px;box-shadow:0 8px 30px rgba(2,6,23,0.4);text-align:center}
+  .card img{width:60px;height:60px;border-radius:10px;margin-bottom:8px}
+  h2{color:#007bff;margin-bottom:6px}
+  p{color:#f2730b;margin-bottom:12px}
+  input{width:100%;padding:12px;margin:10px 0;border:1px solid #e109de;
+  background-color: #f1f1ea;
+  border-radius:8px;font-size:15px}
+  button{width:100%;padding:12px;border-radius:10px;border:none;background:#007bff;color:#f4f4f4;font-weight:700;cursor:pointer}
+  small{color:#777;display:block;margin-top:12px}
+</style>
+</head>
+<body>
+  <div class="card">
+    <img src="/snapyy-site/images/logo.png" alt="Snapyy Logo">
+    <h2>Reset Password</h2>
+    <p>Enter your registered password, we will send you an O.T.P. .</p>
+
+    <input id="phone" type="tel" placeholder="10-digit Phone Number" pattern="[0-9]{10}" maxlength="10" />
+    <button id="sendOtp">Send OTP</button>
+    <small id="info">OTP will be simulated.</small>
+  </div>
+
+<script>
+(function(){
+  const sendBtn = document.getElementById('sendOtp');
+  const phoneInput = document.getElementById('phone');
+  const info = document.getElementById('info');
+
+  function genOtp(){
+    return Math.floor(100000 + Math.random()*900000).toString(); // 6-digit
+  }
+
+  sendBtn.addEventListener('click', ()=>{
+    const phone = phoneInput.value.trim();
+    if(!/^[0-9]{10}$/.test(phone)){
+      alert('Please enter a valid 10-digit phone number.');
+      phoneInput.focus();
+      return;
+    }
+
+    // Rate-limit: allow 1 OTP per 30 seconds
+    const lastSent = localStorage.getItem('snapyy_otp_last_sent');
+    if(lastSent && (Date.now() - parseInt(lastSent,10) < 30000)){
+      alert('Please wait a few seconds before requesting another OTP.');
+      return;
+    }
+
+    const otp = genOtp();
+    const expiry = Date.now() + 5*60*1000; // 5 minutes
+    const attemptsLeft = 3;
+
+    // Save to localStorage (demo only)
+    const payload = { phone, otp, expiry, attemptsLeft };
+    localStorage.setItem('snapyy_otp_payload', JSON.stringify(payload));
+    localStorage.setItem('snapyy_otp_last_sent', Date.now().toString());
+
+    // For demo — show OTP to user (in real app, OTP is sent via SMS)
+    info.innerText = 'Demo OTP: ' + otp + '  (valid 5 minutes). Redirecting...';
+
+    // Redirect to OTP verify page after small delay
+    setTimeout(()=> { location.href = 'otp-verify.html'; }, 1400);
+  });
+
+})();
+</script>
+</body>
+</html>
